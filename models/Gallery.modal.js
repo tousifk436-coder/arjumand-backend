@@ -1,25 +1,72 @@
+// import mongoose from "mongoose";
+
+// const gallerySchema = new mongoose.Schema(
+//   {
+//     title: {
+//       type: String,
+//     },
+
+//     // Ek title ke andar multiple image URLs
+//     url: {
+//       type: [
+//         {
+//           type: String,
+//           required: true,
+//           trim: true,
+//         },
+//       ],
+//       validate: {
+//         validator: function (value) {
+//           return Array.isArray(value) && value.length > 0;
+//         },
+//         message: "At least one gallery image is required",
+//       },
+//     },
+
+//     isActive: {
+//       type: Boolean,
+//       default: true,
+//     },
+//   },
+//   { timestamps: true },
+// );
+
+// export default mongoose.model("Gallery", gallerySchema);
 import mongoose from "mongoose";
 
 const gallerySchema = new mongoose.Schema(
   {
     title: {
       type: String,
+      trim: true,
     },
 
-    // Ek title ke andar multiple image URLs
-    url: {
+    media: {
       type: [
         {
-          type: String,
-          required: true,
-          trim: true,
+          type: {
+            type: String,
+            enum: ["image", "video"],
+            required: true,
+          },
+
+          url: {
+            type: String,
+            required: true,
+            trim: true,
+          },
+
+          thumbnail: {
+            type: String,
+            trim: true,
+          },
         },
       ],
       validate: {
         validator: function (value) {
           return Array.isArray(value) && value.length > 0;
         },
-        message: "At least one gallery image is required",
+        message: "At least one gallery image or video is required",
       },
     },
 
@@ -28,7 +75,9 @@ const gallerySchema = new mongoose.Schema(
       default: true,
     },
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+  }
 );
 
 export default mongoose.model("Gallery", gallerySchema);

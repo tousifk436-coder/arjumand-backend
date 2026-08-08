@@ -1,4 +1,29 @@
+// import { Router } from "express";
+// import {
+//   createGallery,
+//   getAllGallery,
+//   getGalleryById,
+//   updateGallery,
+//   deleteGallery,
+// } from "../controllers/galleryController.js";
+
+// import { verifyJWT } from "../middlewares/authTypeMiddleware.js";
+
+// const router = Router();
+
+// // ✅ Public Routes
+// router.get("/", getAllGallery);
+// router.get("/:id", getGalleryById);
+
+// // ✅ Protected/Admin Routes
+// router.post("/", verifyJWT, createGallery);
+// router.put("/:id", verifyJWT, updateGallery);
+// router.delete("/:id", verifyJWT, deleteGallery);
+
+// export default router;
+
 import { Router } from "express";
+
 import {
   createGallery,
   getAllGallery,
@@ -7,17 +32,15 @@ import {
   deleteGallery,
 } from "../controllers/galleryController.js";
 
-import { verifyJWT } from "../middlewares/authTypeMiddleware.js";
-
 const router = Router();
 
-// ✅ Public Routes
+// Public Routes
 router.get("/", getAllGallery);
 router.get("/:id", getGalleryById);
 
-// ✅ Protected/Admin Routes
-router.post("/", verifyJWT, createGallery);
-router.put("/:id", verifyJWT, updateGallery);
-router.delete("/:id", verifyJWT, deleteGallery);
+// Gallery CRUD - No Authorization
+router.post("/", createGallery);
+router.put("/:id", updateGallery);
+router.delete("/:id", deleteGallery);
 
 export default router;
